@@ -12,6 +12,7 @@ import org.mapstruct.factory.Mappers;
 public interface CachedObjectMapper {
     CachedObjectMapper MAPPER = Mappers.getMapper(CachedObjectMapper.class);
 
+    @Mapping(source = "id", target="id")
     @Mapping(source = "object", target = "object")
     @Mapping(source = "cachingMethod", target = "cachingMethod")
     CachedObject requestToCachedObject(Request request);
