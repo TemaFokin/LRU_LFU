@@ -40,9 +40,10 @@ class LFUTest {
 
         lfu.caching(firstCachedObject);
         lfu.caching(secondCachedObject);
+        lfu.caching(secondCachedObject);
         lfu.caching(thirdCachedObject);
 
-        assertEquals(1, lfuCache.getCacheMap().size());
+        assertEquals(2, lfuCache.getCacheMap().size());
     }
 
     private CachedObject firstCachedObject(){
