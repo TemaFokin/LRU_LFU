@@ -12,7 +12,7 @@ import java.util.*;
 public class LRU extends Caching {
 
     private final LRUCache LRUCache;
-    private static Deque<Integer> queue = new LinkedList<>();
+    private Deque<Integer> queue = new LinkedList<>();
 
     @Override
     public void caching(CachedObject cachedObject) {
