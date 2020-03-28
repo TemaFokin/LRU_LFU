@@ -9,23 +9,23 @@ import java.util.*;
 
 @Service("lru")
 @RequiredArgsConstructor
-public class LRU extends Caching{
+public class LRU extends Caching {
 
     private final LRUCache LRUCache;
-    private static Deque<CachedObject> queue = new LinkedList<>();
+    private static Deque<Integer> queue = new LinkedList<>();
 
     @Override
     public void caching(CachedObject cachedObject) {
-        if (!LRUCache.getCacheMap().containsKey(cachedObject.getId())){
-            if (queue.size()== LRUCache.getCapacity()){
+        if (!LRUCache.getCacheMap().containsKey(cachedObject.getId())) {
+            if (queue.size() == LRUCache.getCapacity()) {
                 //todo implement adding to the database
-                CachedObject last = queue.removeLast();
-                LRUCache.getCacheMap().remove(last.getId());
+                int last = queue.removeLast();
+                LRUCache.getCacheMap().remove(last);
             }
         } else {
-            queue.remove(cachedObject);
+            queue.remove(cachedObject.getId());
         }
-        queue.push(cachedObject);
+        queue.push(cachedObject.getId());
         LRUCache.getCacheMap().put(cachedObject.getId(), cachedObject.getObject());
     }
 }
