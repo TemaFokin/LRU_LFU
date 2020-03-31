@@ -1,5 +1,6 @@
 package com.lruandlfu.demo.rest;
 
+import com.lruandlfu.demo.cache.memory.Caching;
 import com.lruandlfu.demo.dto.Request;
 import com.lruandlfu.demo.dto.Response;
 import com.lruandlfu.demo.entities.CachedObject;
@@ -22,6 +23,7 @@ public class RestController {
     @ResponseBody
     public Response cache(@NonNull @RequestBody Request request){
         CachedObject cachedObject = CachedObjectMapper.MAPPER.requestToCachedObject(request);
+        Caching caching = qualifier.getCacheStrategy(cachedObject.getCachingMethod());
         return CachedObjectMapper.MAPPER.cachedObjectToResponse(cachedObject);
     }
 

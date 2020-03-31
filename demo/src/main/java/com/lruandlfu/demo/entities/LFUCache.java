@@ -1,13 +1,14 @@
 package com.lruandlfu.demo.entities;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
+import java.io.File;
 import java.util.HashMap;
 
-@Entity
 @Data
+@Component
 public class LFUCache {
-    HashMap<Integer, Object> cacheMap = new HashMap<>();
+    private HashMap<Integer, File> cacheMap = new HashMap<>();
     int capacity;
 }

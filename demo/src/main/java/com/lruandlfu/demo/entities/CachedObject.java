@@ -2,12 +2,11 @@ package com.lruandlfu.demo.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
+import java.io.File;
 
-@Entity
 @Data
 public class CachedObject {
     private Integer id;
-    private Object object;
+    private File file;
     private String cachingMethod;
 }

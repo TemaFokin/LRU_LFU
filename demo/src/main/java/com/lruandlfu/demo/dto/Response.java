@@ -2,7 +2,10 @@ package com.lruandlfu.demo.dto;
 
 import lombok.Data;
 
+import java.io.File;
+
 @Data
 public class Response {
-    private Object object;
+    private Integer id;
+    private File file;
 }

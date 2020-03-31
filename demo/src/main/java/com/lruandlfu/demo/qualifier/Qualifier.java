@@ -1,6 +1,6 @@
 package com.lruandlfu.demo.qualifier;
 
-import com.lruandlfu.demo.cache.Caching;
+import com.lruandlfu.demo.cache.memory.Caching;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

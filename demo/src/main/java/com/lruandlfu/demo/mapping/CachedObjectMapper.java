@@ -13,10 +13,11 @@ public interface CachedObjectMapper {
     CachedObjectMapper MAPPER = Mappers.getMapper(CachedObjectMapper.class);
 
     @Mapping(source = "id", target="id")
-    @Mapping(source = "object", target = "object")
+    @Mapping(source = "file", target = "file")
     @Mapping(source = "cachingMethod", target = "cachingMethod")
     CachedObject requestToCachedObject(Request request);
 
-    @Mapping(source = "object", target = "object")
+    @Mapping(source = "id", target="id")
+    @Mapping(source = "file", target = "file")
     Response cachedObjectToResponse(CachedObject cachedObject);
 }
