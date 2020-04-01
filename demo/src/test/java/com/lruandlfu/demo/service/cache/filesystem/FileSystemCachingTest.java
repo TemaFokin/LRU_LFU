@@ -1,10 +1,8 @@
-package com.lruandlfu.demo.cache.filesystem;
+package com.lruandlfu.demo.service.cache.filesystem;
 
 import com.lruandlfu.demo.entities.CachedObject;
-import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 

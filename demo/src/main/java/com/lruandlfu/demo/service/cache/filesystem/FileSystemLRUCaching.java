@@ -1,4 +1,4 @@
-package com.lruandlfu.demo.cache.filesystem;
+package com.lruandlfu.demo.service.cache.filesystem;
 
 import com.lruandlfu.demo.entities.LRUFileCache;
 import lombok.RequiredArgsConstructor;
