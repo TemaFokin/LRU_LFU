@@ -1,13 +1,10 @@
 package com.lruandlfu.demo.service.getter;
 
 import com.lruandlfu.demo.entities.*;
-import com.lruandlfu.demo.service.cache.memory.MemoryCachingLFU;
-import com.lruandlfu.demo.service.cache.memory.MemoryCachingLRU;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -18,35 +15,35 @@ public class FileGetter {
     private final LFUFileCache lfuFileCache;
     private final LRUFileCache lruFileCache;
 
-    public CachedObject getFile(CachedObject cachedObject) throws IOException {
+    public CachedObject getFile(CachedObject cachedObject){
         if (cachedObject.getCachingMethod().equals("lfu")) {
-           cachedObject.setFile(getLfuFile(cachedObject));
+           cachedObject.setFile(getLfuFile(cachedObject.getId()));
         }
         if (cachedObject.getCachingMethod().equals("lru")) {
-            cachedObject.setFile(getLruFile(cachedObject));
+            cachedObject.setFile(getLruFile(cachedObject.getId()));
         }
         return cachedObject;
     }
 
-    private File getLfuFile(CachedObject cachedObject) {
+    private File getLfuFile(int id) {
         File lfuCacheDirectory = new File("src/lfucacheddirectory");
-        if (lfuCache.getCacheMap().containsKey(cachedObject.getId())){
-            cachedObject.setFile(lfuCache.getCacheMap().get(cachedObject.getId()));
+        File foundFile;
+        if (lfuCache.getCacheMap().containsKey(id)){
+            foundFile = lfuCache.getCacheMap().get(id);
         } else {
-            File foundFile = new File(lfuCacheDirectory, lfuFileCache.getFiles().get(cachedObject.getId()));
-            cachedObject.setFile(foundFile);
+            foundFile = new File(lfuCacheDirectory, lfuFileCache.getFiles().get(id));
         }
-        return cachedObject.getFile();
+        return foundFile;
     }
 
-    private File getLruFile(CachedObject cachedObject) {
+    private File getLruFile(int id) {
         File lruCacheDirectory = new File("src/lrucacheddirectory");
-        if (lruCache.getCacheMap().containsKey(cachedObject.getId())){
-            cachedObject.setFile(lruCache.getCacheMap().get(cachedObject.getId()));
+        File foundFile;
+        if (lruCache.getCacheMap().containsKey(id)){
+            foundFile = lruCache.getCacheMap().get(id);
         } else {
-            File foundFile = new File(lruCacheDirectory, lruFileCache.getFiles().get(cachedObject.getId()));
-            cachedObject.setFile(foundFile);
+            foundFile = new File(lruCacheDirectory, lruFileCache.getFiles().get(id));
         }
-        return cachedObject.getFile();
+        return foundFile;
     }
 }

@@ -39,7 +39,7 @@ public class FileSystemLFUCaching {
                 fileAvailability = true;
             }
         }
-        if (fileAvailability == false) {
+        if (!fileAvailability) {
             hitCounter.put(key, 1);
             File newFile = new File(cacheDirectory.getPath() + "/" + file.getName());
             if (!newFile.exists()) {

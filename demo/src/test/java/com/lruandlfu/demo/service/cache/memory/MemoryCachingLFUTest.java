@@ -10,7 +10,8 @@ import org.mockito.Mock;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static junit.framework.TestCase.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 
@@ -20,20 +21,22 @@ class MemoryCachingLFUTest extends MemoryCachingTest {
     private LFUFileCache lfuFileCache = new LFUFileCache();
 
     @Mock
-    private FileSystemLFUCaching lfuCaching = new FileSystemLFUCaching(lfuFileCache);
+    private FileSystemLFUCaching lfuFileCaching = new FileSystemLFUCaching(lfuFileCache);
 
     @Mock
     private LFUCache lfuCache = new LFUCache();
 
     @InjectMocks
-    private MemoryCachingLFU memoryCachingLfu = new MemoryCachingLFU(lfuCaching, lfuCache);
+    private MemoryCachingLFU memoryCachingLfu = new MemoryCachingLFU(lfuFileCaching, lfuCache);
 
     @Test
     void crowdingOutTheFirstObjectFromTheQueue() throws IOException {
         lfuCache.setCapacity(2);
+        lfuFileCache.setCapacity(2);
         CachedObject firstCachedObject = firstCachedObject();
         CachedObject secondCachedObject = secondCachedObject();
         CachedObject thirdCachedObject = thirdCachedObject();
+        doNothing().when(lfuFileCaching).caching(any(), any());
 
         memoryCachingLfu.caching(firstCachedObject);
         memoryCachingLfu.caching(secondCachedObject);
@@ -49,7 +52,7 @@ class MemoryCachingLFUTest extends MemoryCachingTest {
         CachedObject firstCachedObject = firstCachedObject();
         CachedObject secondCachedObject = secondCachedObject();
         CachedObject thirdCachedObject = thirdCachedObject();
-        doNothing().when(lfuCaching).caching(any(), any());
+        doNothing().when(lfuFileCaching).caching(any(), any());
 
         memoryCachingLfu.caching(firstCachedObject);
         memoryCachingLfu.caching(secondCachedObject);
